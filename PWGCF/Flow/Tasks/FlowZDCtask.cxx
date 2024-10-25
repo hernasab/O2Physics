@@ -9,6 +9,11 @@
 // granted to it by virtue of its status as an Intergovernmental Organization
 // or submit itself to any jurisdiction.
 
+// o2-analysis-cf-flow-zdc-task --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-track-propagation --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-tracks-extra-converter --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-bc-converter --aod-file AO2D.root --configuration json://configuration_run3.json |  o2-analysis-timestamp --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-event-selection --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-trackselection --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-centrality-table --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-multiplicity-table --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-zdc-converter  --aod-file AO2D.root --configuration json://configuration_run3.json -b
+
+
+// o2-analysis-cf-flow-zdc-task --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-track-propagation --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-tracks-extra-converter --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-bc-converter --aod-file AO2D.root --configuration json://configuration_run3.json |  o2-analysis-timestamp --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-event-selection --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-trackselection --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-centrality-table --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-multiplicity-table --aod-file AO2D.root --configuration json://configuration_run3.json
+
 #include <CCDB/BasicCCDBManager.h>
 #include <cmath>
 #include <vector>
@@ -102,6 +107,13 @@ struct FlowZDCtask {
   OutputObj<TProfile> ZDC_ZEM_Energy{TProfile("ZDC_ZEM_Energy", "ZDC vs ZEM Energy", 10, 0, 1000)};
   OutputObj<TProfile> pCosPsiDifferences{TProfile("pCosPsiDifferences", "Differences in cos(psi) vs Centrality;Centrality;Mean cos(psi) Difference", 200, 0, 100, -1, 1)};
   OutputObj<TProfile> pSinPsiDifferences{TProfile("pSinPsiDifferences", "Differences in sin(psi) vs Centrality;Centrality;Mean sin(psi) Difference", 200, 0, 100, -1, 1)};
+  OutputObj<TProfile> pZNvsFT0MAmp{TProfile("pZNvsFT0MAmp", "ZN Energy vs FT0M Amplitude", 100, 0, 30000, 0, 50000)};
+  OutputObj<TProfile> pZPvsFT0MAmp{TProfile("pZPvsFT0MAmp", "ZP Energy vs FT0M Amplitude", 100, 0, 30000, 0, 50000)};
+  OutputObj<TProfile> pZNvsFT0Ccent{TProfile("pZNvsFT0Ccent", "ZN Energy vs FT0C Centrality", 50, 0, 100, 0, 50000)};
+  OutputObj<TProfile> pZPvsFT0Ccent{TProfile("pZPvsFT0Ccent", "ZP Energy vs FT0C Centrality", 50, 0, 100, 0, 50000)};
+  OutputObj<TProfile> pZNratiovscent{TProfile("pZNratiovscent", "Ratio ZNC/ZNA vs FT0C Centrality", 10, 0, 100, 0, 5)};
+  OutputObj<TProfile> pZPratiovscent{TProfile("pZPratiovscent", "Ratio ZPC/ZPA vs FT0C Centrality", 10, 0, 100, 0, 5)};
+
 
   OutputObj<TProfile> pZNvsFT0MAmp{TProfile("pZNvsFT0MAmp", "ZN Energy vs FT0M Amplitude", 100, 0, 300, 0, 50000)};
   OutputObj<TProfile> pZPvsFT0MAmp{TProfile("pZPvsFT0MAmp", "ZP Energy vs FT0M Amplitude", 100, 0, 300, 0, 50000)};
@@ -132,7 +144,7 @@ struct FlowZDCtask {
 
     AxisSpec axisVtxcounts{2, -0.5f, 1.5f, "Vtx info (0=no, 1=yes)"};
     AxisSpec axisZvert{120, -30.f, 30.f, "Vtx z (cm)"};
-    AxisSpec axisCent{8, 0.f, 100.f, "centrality"};
+    AxisSpec axisCent{8, 0.f, 105.f, "centrality"};
     AxisSpec axisMult{1000, -0.5f, 1500.5f, "multiplicity"};
     AxisSpec axisMultTPC{1000, -0.5f, 1999.5f, "TPCmultiplicity"};
     AxisSpec axisCentBins{{0, 5., 10., 20., 30., 40., 50., 60., 70., 80.}, "centrality percentile"};
@@ -161,11 +173,13 @@ struct FlowZDCtask {
     histos.add("EnergyZNA", "ZNA Sector Energy", kTH1F, {axisEnergy});
     histos.add("EnergyZNC", "ZNC Sector Energy", kTH1F, {axisEnergy});
 
-    histos.add("ZNenergy", "zn energy", kTH1F, {axisEnergy});
-    histos.add("ZPenergy", "zp energy", kTH1F, {axisEnergy});
+
+    histos.add("hFT0MAmp", "hFT0MAmp", kTH1F, {{nBinsAmp, 0, 40000}});
+=======
 
     histos.add("hCentFT0C", "FT0C Centrality Distribution", kTH1F, {{100, 0, 105}});
-    histos.add("hFT0MAmp", "hFT0MAmp", kTH1F, {{nBinsAmp, 0, 40000}});
+   
+>>>>>>> e4841f82 (Updated neutron skin process in FlowZDCtask.cxx)
     // for q vector recentering
     histos.add("revsimag", "revsimag", kTH2F, {axisREQ, axisIMQ});
 
@@ -193,6 +207,16 @@ struct FlowZDCtask {
       histos.add("hSinDifferences", "Differences in sin(psi);sin(psiZNC) - sin(psiZNA);Entries", {HistType::kTH1F, {{100, -2, 2}}});
       histos.add("CosPsiDifferencesAvg", "Differences in cos(psi);cos(psiZNC) - cos(psiZNA);Entries", {HistType::kTH2F, {{axisCent}, {100, -2, 2}}});
       histos.add("ZDC_energy_vs_ZEM", "ZDCvsZEM; ZEM; ZNA+ZNC+ZPA+ZPC", {HistType::kTH2F, {{{nBinsAmp, -0.5, MaxZEM}, {nBinsAmp, -0.5, 2. * MaxZN}}}});
+      // common energies information for ZDC
+      histos.add("ZNCenergy", "ZN energy side c", kTH1F, {axisEnergy});
+      histos.add("ZNAenergy", "ZN energy side a", kTH1F, {axisEnergy});
+      histos.add("ZPCenergy", "ZP energy side c", kTH1F, {axisEnergy});
+      histos.add("ZPAenergy", "ZP energy side a", kTH1F, {axisEnergy});      
+      histos.add("ZNenergy", "common zn (a + c sides) energy", kTH1F, {axisEnergy});
+      histos.add("ZPenergy", "common zp energy (a + c sides)", kTH1F, {axisEnergy});
+      histos.add("hFT0CAmp", "hFT0CAmp", kTH1F, {{nBinsAmp, 0, 40000}});
+      histos.add("hFT0AAmp", "hFT0AAmp", kTH1F, {{nBinsAmp, 0, 40000}});
+      histos.add("hFT0MAmp", "hFT0AAmp", kTH1F, {{nBinsAmp, 0, 40000}});
     }
   }
 
@@ -242,63 +266,124 @@ struct FlowZDCtask {
   void processZdcCollAssoc(
     ColEvSels const& cols,
     BCsRun3 const& /*bcs*/,
-    aod::Zdcs const& /*zdcs*/)
-  {
+    aod::Zdcs const& /*zdcs*/, 
+    aod::FT0s const& ft0s)
+{
     double sumCosPsiDiff = 0.0; // initialize Sum of cosPsiDiff for averaging
     double sumSinPsiDiff = 0.0; // initialize Sum of cosPsiDiff for averaging
     int countEvents = 0;        // initialize Counter for the number of events processed
+
     // collision-based event selection
     for (auto& collision : cols) {
-      const auto& foundBC = collision.foundBC_as<BCsRun3>();
-      if (foundBC.has_zdc()) {
-        const auto& zdcread = foundBC.zdc();
-        const auto cent = collision.centFT0C();
+        const auto& foundBC = collision.foundBC_as<BCsRun3>();
 
-        histos.get<TH1>(HIST("ZNAcoll"))->Fill(zdcread.amplitudeZNA());
-        histos.get<TH1>(HIST("ZNCcoll"))->Fill(zdcread.amplitudeZNC());
-        histos.get<TH2>(HIST("ZNvsZEMcoll"))->Fill(zdcread.amplitudeZEM1() + zdcread.amplitudeZEM2(), zdcread.amplitudeZNA() + zdcread.amplitudeZNC());
-        histos.get<TH2>(HIST("ZNAvsZNCcoll"))->Fill(zdcread.amplitudeZNC(), zdcread.amplitudeZNA());
+        if (collision.has_foundFT0()) {
+            const auto& ft0 = collision.foundFT0();
 
-        histos.get<TH1>(HIST("ZEM1coll"))->Fill(zdcread.amplitudeZEM1());
-        histos.get<TH1>(HIST("ZEM2coll"))->Fill(zdcread.amplitudeZEM2());
+            float amplitudeM = 0;
 
-        float sumZNC = (zdcread.energySectorZNC())[0] + (zdcread.energySectorZNC())[1] + (zdcread.energySectorZNC())[2] + (zdcread.energySectorZNC())[3];
-        float sumZNA = (zdcread.energySectorZNA())[0] + (zdcread.energySectorZNA())[1] + (zdcread.energySectorZNA())[2] + (zdcread.energySectorZNA())[3];
-        float sumZPC = (zdcread.energySectorZPC())[0] + (zdcread.energySectorZPC())[1] + (zdcread.energySectorZPC())[2] + (zdcread.energySectorZPC())[3];
-        float sumZPA = (zdcread.energySectorZPA())[0] + (zdcread.energySectorZPA())[1] + (zdcread.energySectorZPA())[2] + (zdcread.energySectorZPA())[3];
-        float sumZDC = sumZPA + sumZPC + sumZNA + sumZNC;
-        float sumZEM = zdcread.amplitudeZEM1() + zdcread.amplitudeZEM2();
-        histos.get<TH2>(HIST("ZDC_energy_vs_ZEM"))->Fill(sumZEM, sumZDC);
+            size_t nA = ft0.amplitudeA().size();  // FT0A amplitudes size
+            size_t nC = ft0.amplitudeC().size();  // FT0C amplitudes size
 
-        const auto Ntot_ZNA = zdcread.amplitudeZNA();
-        const auto Ntot_ZNC = zdcread.amplitudeZNC();
-        double qZNA_real = 0.0; // Initialize qZNA_real
-        double qZNA_im = 0.0;   // Initialize
-        double qZNC_real = 0.0; // Initialize qZNC_real
-        double qZNC_im = 0.0;   // Initialize
-        const double phiRadians[4] = {45 * TMath::Pi() / 180, 135 * TMath::Pi() / 180, 225 * TMath::Pi() / 180, 315 * TMath::Pi() / 180};
-        TComplex qZNA(0, 0), qZNC(0, 0);
+            for (std::size_t i = 0; i < std::min(nA, nC); i++) {
+                float amplitudeA = ft0.amplitudeA()[i];
+                float amplitudeC = ft0.amplitudeC()[i];
+                amplitudeM = amplitudeA + amplitudeC;
 
-        for (int sector = 0; sector < 4; ++sector) {
-          // energy for current sector for ZNA and ZNC
-          float energyZNA = zdcread.energySectorZNA()[sector];
-          float energyZNC = zdcread.energySectorZNC()[sector];
+                histos.fill(HIST("hFT0AAmp"), amplitudeA);
+                histos.fill(HIST("hFT0CAmp"), amplitudeC);
+                histos.fill(HIST("hFT0MAmp"), amplitudeM);
+            }
 
-          // Calculate q-vector from current sector and add it to the total q-vector
-          qZNA += TComplex(TMath::Cos(2 * phiRadians[sector]) * energyZNA / sumZNA, TMath::Sin(2 * phiRadians[sector]) * energyZNA / sumZNA);
-          qZNC += TComplex(TMath::Cos(2 * phiRadians[sector]) * energyZNC / sumZNC, TMath::Sin(2 * phiRadians[sector]) * energyZNC / sumZNC);
-        }
+            if (nA > nC) {
+                for (std::size_t i = nC; i < nA; i++) {
+                    float amplitudeA = ft0.amplitudeA()[i];
+                    histos.fill(HIST("hFT0AAmp"), amplitudeA);
+                }
+            }
 
-        qZNA_real = qZNA.Re() / Ntot_ZNA;
-        qZNA_im = qZNA.Im() / Ntot_ZNA;
-        qZNC_real = qZNC.Re() / Ntot_ZNC;
-        qZNC_im = qZNC.Im() / Ntot_ZNC;
+            if (nC > nA) {
+                for (std::size_t i = nA; i < nC; i++) {
+                    float amplitudeC = ft0.amplitudeC()[i];
+                    histos.fill(HIST("hFT0CAmp"), amplitudeC);
+                }
+            }
 
-        histos.fill(HIST("Acorrelations"), qZNA.Re(), qZNA.Im());
-        histos.fill(HIST("RealQHistogramZNA"), qZNA_real);
-        histos.fill(HIST("ImagQHistogramZNA"), qZNA_im);
-        histos.fill(HIST("RealQHistogramZNC"), qZNC_real);
-        histos.fill(HIST("ImagQHistogramZNC"), qZNC_im);
+            if (foundBC.has_zdc()) {
+                const auto& zdcread = foundBC.zdc();
+                const auto cent = collision.centFT0C();
+
+                // ZDC data and histogram filling
+                histos.get<TH1>(HIST("ZNAcoll"))->Fill(zdcread.amplitudeZNA());
+                histos.get<TH1>(HIST("ZNCcoll"))->Fill(zdcread.amplitudeZNC());
+                histos.get<TH2>(HIST("ZNvsZEMcoll"))->Fill(zdcread.amplitudeZEM1() + zdcread.amplitudeZEM2(), zdcread.amplitudeZNA() + zdcread.amplitudeZNC());
+                histos.get<TH2>(HIST("ZNAvsZNCcoll"))->Fill(zdcread.amplitudeZNC(), zdcread.amplitudeZNA());
+
+                histos.get<TH1>(HIST("ZEM1coll"))->Fill(zdcread.amplitudeZEM1());
+                histos.get<TH1>(HIST("ZEM2coll"))->Fill(zdcread.amplitudeZEM2());
+
+                float sumZNC = (zdcread.energySectorZNC())[0] + (zdcread.energySectorZNC())[1] + (zdcread.energySectorZNC())[2] + (zdcread.energySectorZNC())[3];
+                float sumZNA = (zdcread.energySectorZNA())[0] + (zdcread.energySectorZNA())[1] + (zdcread.energySectorZNA())[2] + (zdcread.energySectorZNA())[3];
+                float sumZPC = (zdcread.energySectorZPC())[0] + (zdcread.energySectorZPC())[1] + (zdcread.energySectorZPC())[2] + (zdcread.energySectorZPC())[3];
+                float sumZPA = (zdcread.energySectorZPA())[0] + (zdcread.energySectorZPA())[1] + (zdcread.energySectorZPA())[2] + (zdcread.energySectorZPA())[3];
+                float sumZDC = sumZPA + sumZPC + sumZNA + sumZNC;
+                float sumZEM = zdcread.amplitudeZEM1() + zdcread.amplitudeZEM2();
+
+                // common energies
+                float common_sumZNC = (zdcread.energyCommonZNC());
+                float common_sumZNA = (zdcread.energyCommonZNA());
+                float common_sumZPC = (zdcread.energyCommonZPC());
+                float common_sumZPA = (zdcread.energyCommonZPA());
+                float sumZN = (sumZNC * 0.90) + (sumZNA * 0.92);
+                float sumZP = (sumZPC * 0.52) + (sumZPA * 0.52);
+
+                histos.fill(HIST("ZNenergy"), sumZN);
+                histos.fill(HIST("ZPenergy"), sumZP);
+                histos.fill(HIST("ZNCenergy"), common_sumZNC);
+                histos.fill(HIST("ZNAenergy"), common_sumZNA);
+                histos.fill(HIST("ZPAenergy"), common_sumZPA);
+                histos.fill(HIST("ZPCenergy"), common_sumZPC);
+
+                float ratioZN = sumZNC / sumZNA;
+                float ratioZP = sumZPC / sumZPA;
+                pZNratiovscent->Fill(cent, ratioZN);
+                pZPratiovscent->Fill(cent, ratioZP);
+                pZNvsFT0Ccent->Fill(cent, sumZN);
+                pZPvsFT0Ccent->Fill(cent, sumZP);
+                pZPvsFT0MAmp->Fill(sumZP, amplitudeM);
+                pZNvsFT0MAmp->Fill(sumZN, amplitudeM);
+
+
+                histos.get<TH2>(HIST("ZDC_energy_vs_ZEM"))->Fill(sumZEM, sumZDC);
+
+                // Spectator plane angle calculations and histograms
+                const auto Ntot_ZNA = zdcread.amplitudeZNA();
+                const auto Ntot_ZNC = zdcread.amplitudeZNC();
+                double qZNA_real = 0.0;
+                double qZNA_im = 0.0;
+                double qZNC_real = 0.0;
+                double qZNC_im = 0.0;
+                const double phiRadians[4] = {45 * TMath::Pi() / 180, 135 * TMath::Pi() / 180, 225 * TMath::Pi() / 180, 315 * TMath::Pi() / 180};
+                TComplex qZNA(0, 0), qZNC(0, 0);
+
+                for (int sector = 0; sector < 4; ++sector) {
+                    float energyZNA = zdcread.energySectorZNA()[sector];
+                    float energyZNC = zdcread.energySectorZNC()[sector];
+
+                    qZNA += TComplex(TMath::Cos(2 * phiRadians[sector]) * energyZNA / sumZNA, TMath::Sin(2 * phiRadians[sector]) * energyZNA / sumZNA);
+                    qZNC += TComplex(TMath::Cos(2 * phiRadians[sector]) * energyZNC / sumZNC, TMath::Sin(2 * phiRadians[sector]) * energyZNC / sumZNC);
+                }
+
+                qZNA_real = qZNA.Re() / Ntot_ZNA;
+                qZNA_im = qZNA.Im() / Ntot_ZNA;
+                qZNC_real = qZNC.Re() / Ntot_ZNC;
+                qZNC_im = qZNC.Im() / Ntot_ZNC;
+
+                histos.fill(HIST("Acorrelations"), qZNA.Re(), qZNA.Im());
+                histos.fill(HIST("RealQHistogramZNA"), qZNA_real);
+                histos.fill(HIST("ImagQHistogramZNA"), qZNA_im);
+                histos.fill(HIST("RealQHistogramZNC"), qZNC_real);
+                histos.fill(HIST("ImagQHistogramZNC"), qZNC_im);
 
         // Calculate the spectator plane angles for ZNA and ZNC
         double psiZNA = TMath::ATan2(qZNA.Im(), qZNA.Re()) / 2;
@@ -325,41 +410,17 @@ struct FlowZDCtask {
         histos.fill(HIST("CosPsiDifferences"), cosPsiDiff);
         histos.fill(HIST("hSinDifferences"), sinPsiDiff);
       }
+      }
     }
   }
-  void processNeutronSkin(aodCollisions::iterator const& collision, aod::Zdcs const& zdcs, aod::FT0s const& ft0)
-  {
-    float cent = collision.centFT0C();
-    auto ft0Entry = ft0.iteratorAt(collision.globalIndex());
-    float sumA = ft0Entry.sumAmpA();
-    float sumC = ft0Entry.sumAmpC();
-    float FT0MAmp = sumA + sumC;
-    histos.fill(HIST("hFT0MAmp"), FT0MAmp);
+ 
+  
 
-    // Access ZDC data
-    auto zdcEntry = zdcs.iteratorAt(collision.globalIndex());
-    float sumZNC = zdcEntry.energyCommonZNC();
-    float sumZNA = zdcEntry.energyCommonZNA();
-    float sumZPC = zdcEntry.energyCommonZPC();
-    float sumZPA = zdcEntry.energyCommonZPA();
-    float sumZN = sumZNC + sumZNA;
-    float sumZP = sumZPC + sumZPA;
-    float ratioZN = sumZNC / sumZNA;
-    float ratioZP = sumZPC / sumZPA;
-    pZNratiovscent->Fill(cent, ratioZN);
-    pZPratiovscent->Fill(cent, ratioZP);
-    histos.fill(HIST("ZNenergy"), sumZN);
-    histos.fill(HIST("ZPenergy"), sumZP);
-    pZNvsFT0Ccent->Fill(cent, sumZN);
-    pZPvsFT0Ccent->Fill(cent, sumZP);
-    pZNvsFT0MAmp->Fill(FT0MAmp, sumZN);
-    pZPvsFT0MAmp->Fill(FT0MAmp, sumZP);
-  }
 
   PROCESS_SWITCH(FlowZDCtask, processZdcCollAssoc, "Processing ZDC w. collision association", true);
   PROCESS_SWITCH(FlowZDCtask, processQVector, "Process before recentering", true);
-  PROCESS_SWITCH(FlowZDCtask, processNeutronSkin, "Process for analysis of neutron skin", true);
-
+ 
+>>>>>>> e4841f82 (Updated neutron skin process in FlowZDCtask.cxx)
 }; // end of struct function
 
 WorkflowSpec defineDataProcessing(ConfigContext const& cfgc)
