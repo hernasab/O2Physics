@@ -173,13 +173,9 @@ struct FlowZDCtask {
     histos.add("EnergyZNA", "ZNA Sector Energy", kTH1F, {axisEnergy});
     histos.add("EnergyZNC", "ZNC Sector Energy", kTH1F, {axisEnergy});
 
-
     histos.add("hFT0MAmp", "hFT0MAmp", kTH1F, {{nBinsAmp, 0, 40000}});
-=======
-
     histos.add("hCentFT0C", "FT0C Centrality Distribution", kTH1F, {{100, 0, 105}});
    
->>>>>>> e4841f82 (Updated neutron skin process in FlowZDCtask.cxx)
     // for q vector recentering
     histos.add("revsimag", "revsimag", kTH2F, {axisREQ, axisIMQ});
 
