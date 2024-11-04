@@ -9,11 +9,6 @@
 // granted to it by virtue of its status as an Intergovernmental Organization
 // or submit itself to any jurisdiction.
 
-// o2-analysis-cf-flow-zdc-task --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-track-propagation --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-tracks-extra-converter --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-bc-converter --aod-file AO2D.root --configuration json://configuration_run3.json |  o2-analysis-timestamp --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-event-selection --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-trackselection --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-centrality-table --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-multiplicity-table --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-zdc-converter  --aod-file AO2D.root --configuration json://configuration_run3.json -b
-
-
-// o2-analysis-cf-flow-zdc-task --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-track-propagation --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-tracks-extra-converter --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-bc-converter --aod-file AO2D.root --configuration json://configuration_run3.json |  o2-analysis-timestamp --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-event-selection --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-trackselection --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-centrality-table --aod-file AO2D.root --configuration json://configuration_run3.json | o2-analysis-multiplicity-table --aod-file AO2D.root --configuration json://configuration_run3.json
-
 #include <CCDB/BasicCCDBManager.h>
 #include <cmath>
 #include <vector>
@@ -41,7 +36,7 @@ using namespace o2;
 using namespace o2::framework;
 using namespace o2::framework::expressions;
 using namespace o2::aod::mult;
-using ColEvSels = soa::Join<aod::Collisions, aod::EvSels, aod::CentFT0Cs>;
+using ColEvSels = soa::Join<aod::Collisions, aod::EvSels, aod::CentFT0Cs, aod::Mults>;
 using aodCollisions = soa::Filtered<soa::Join<aod::Collisions, aod::EvSels, aod::CentFT0Cs>>;
 using aodTracks = soa::Filtered<soa::Join<aod::Tracks, aod::TrackSelection, aod::TracksExtra>>;
 using BCsRun3 = soa::Join<aod::BCs, aod::Timestamps, aod::BcSels, aod::Run3MatchedToBCSparse>;
@@ -76,12 +71,14 @@ struct FlowZDCtask {
   Configurable<int> nBinsAmp{"nBinsAmp", 1025, "nbinsAmp"};
   Configurable<float> MaxZN{"MaxZN", 4099.5, "Max ZN signal"};
 
+
   ConfigurableAxis axisVertex{"axisVertex", {20, -10, 10}, "vertex axis for histograms"};
   ConfigurableAxis axisPhi{"axisPhi", {60, 0.0, constants::math::TwoPI}, "phi axis for histograms"};
   ConfigurableAxis axisEta{"axisEta", {40, -1., 1.}, "eta axis for histograms"};
   ConfigurableAxis axisPt{"axisPt", {VARIABLE_WIDTH, 0.2, 0.25, 0.30, 0.40, 0.45, 0.50, 0.55, 0.60, 0.65, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 1.00, 1.10, 1.20, 1.30, 1.40, 1.50, 1.60, 1.70, 1.80, 1.90, 2.00, 2.20, 2.40, 2.60, 2.80, 3.00}, "pt axis for histograms"};
   ConfigurableAxis axisMultiplicity{"axisMultiplicity", {VARIABLE_WIDTH, 0, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90}, "centrality axis for histograms"};
-
+  //ConfigurableAxis axisFT0mult{"axisFT0mult", {nBinsAmp, 0, 10000}, "axis for FT0mult histos"};
+  
   Filter collisionFilter = nabs(aod::collision::posZ) < cfgCutVertex;
   Filter trackFilter = (nabs(aod::track::eta) < cfgCutEta) && (aod::track::pt > cfgCutPtMin) && (aod::track::pt < cfgCutPtMax) && ((requireGlobalTrackInFilter()) || (aod::track::isGlobalTrackSDD == (uint8_t) true)) && (aod::track::tpcChi2NCl < cfgCutChi2prTPCcls);
 
@@ -107,19 +104,11 @@ struct FlowZDCtask {
   OutputObj<TProfile> ZDC_ZEM_Energy{TProfile("ZDC_ZEM_Energy", "ZDC vs ZEM Energy", 10, 0, 1000)};
   OutputObj<TProfile> pCosPsiDifferences{TProfile("pCosPsiDifferences", "Differences in cos(psi) vs Centrality;Centrality;Mean cos(psi) Difference", 200, 0, 100, -1, 1)};
   OutputObj<TProfile> pSinPsiDifferences{TProfile("pSinPsiDifferences", "Differences in sin(psi) vs Centrality;Centrality;Mean sin(psi) Difference", 200, 0, 100, -1, 1)};
-  OutputObj<TProfile> pZNvsFT0MAmp{TProfile("pZNvsFT0MAmp", "ZN Energy vs FT0M Amplitude", 100, 0, 30000, 0, 50000)};
-  OutputObj<TProfile> pZPvsFT0MAmp{TProfile("pZPvsFT0MAmp", "ZP Energy vs FT0M Amplitude", 100, 0, 30000, 0, 50000)};
-  OutputObj<TProfile> pZNvsFT0Ccent{TProfile("pZNvsFT0Ccent", "ZN Energy vs FT0C Centrality", 50, 0, 100, 0, 50000)};
-  OutputObj<TProfile> pZPvsFT0Ccent{TProfile("pZPvsFT0Ccent", "ZP Energy vs FT0C Centrality", 50, 0, 100, 0, 50000)};
-  OutputObj<TProfile> pZNratiovscent{TProfile("pZNratiovscent", "Ratio ZNC/ZNA vs FT0C Centrality", 10, 0, 100, 0, 5)};
-  OutputObj<TProfile> pZPratiovscent{TProfile("pZPratiovscent", "Ratio ZPC/ZPA vs FT0C Centrality", 10, 0, 100, 0, 5)};
+  OutputObj<TProfile> pZNvsFT0MAmp{TProfile("pZNvsFT0MAmp", "ZN Energy vs FT0M Amplitude", 100, 0, 50000, 0, 500)};
+  OutputObj<TProfile> pZPvsFT0MAmp{TProfile("pZPvsFT0MAmp", "ZP Energy vs FT0M Amplitude", 100, 0, 50000, 0, 500)};
 
-
-  OutputObj<TProfile> pZNvsFT0MAmp{TProfile("pZNvsFT0MAmp", "ZN Energy vs FT0M Amplitude", 100, 0, 300, 0, 50000)};
-  OutputObj<TProfile> pZPvsFT0MAmp{TProfile("pZPvsFT0MAmp", "ZP Energy vs FT0M Amplitude", 100, 0, 300, 0, 50000)};
-
-  OutputObj<TProfile> pZNvsFT0Ccent{TProfile("pZNvsFT0Ccent", "ZN Energy vs FT0C Centrality", 10, 0, 100, 0, 50000)};
-  OutputObj<TProfile> pZPvsFT0Ccent{TProfile("pZPvsFT0Ccent", "ZP Energy vs FT0C Centrality", 10, 0, 100, 0, 50000)};
+  OutputObj<TProfile> pZNvsFT0Ccent{TProfile("pZNvsFT0Ccent", "ZN Energy vs FT0C Centrality", 100, 0, 100, 0, 50000)};
+  OutputObj<TProfile> pZPvsFT0Ccent{TProfile("pZPvsFT0Ccent", "ZP Energy vs FT0C Centrality", 100, 0, 100, 0, 50000)};
   OutputObj<TProfile> pZNratiovscent{TProfile("pZNratiovscent", "Ratio ZNC/ZNA vs FT0C Centrality", 100, 0, 100, 0, 5)};
   OutputObj<TProfile> pZPratiovscent{TProfile("pZPratiovscent", "Ratio ZPC/ZPA vs FT0C Centrality", 100, 0, 100, 0, 5)};
 
@@ -141,6 +130,7 @@ struct FlowZDCtask {
     const AxisSpec axisREQ{100, -1, 1, "real Q"};
     const AxisSpec axisIMQ{100, -1, 1, "imag Q"};
     const AxisSpec axisEnergy{100, 0, 50000., "energy"};
+
 
     AxisSpec axisVtxcounts{2, -0.5f, 1.5f, "Vtx info (0=no, 1=yes)"};
     AxisSpec axisZvert{120, -30.f, 30.f, "Vtx z (cm)"};
@@ -173,7 +163,7 @@ struct FlowZDCtask {
     histos.add("EnergyZNA", "ZNA Sector Energy", kTH1F, {axisEnergy});
     histos.add("EnergyZNC", "ZNC Sector Energy", kTH1F, {axisEnergy});
 
-    histos.add("hFT0MAmp", "hFT0MAmp", kTH1F, {{nBinsAmp, 0, 40000}});
+    //histos.add("hFT0MAmp", "hFT0MAmp", kTH1F, {{nBinsAmp, 0, 40000}});
     histos.add("hCentFT0C", "FT0C Centrality Distribution", kTH1F, {{100, 0, 105}});
    
     // for q vector recentering
@@ -210,9 +200,12 @@ struct FlowZDCtask {
       histos.add("ZPAenergy", "ZP energy side a", kTH1F, {axisEnergy});      
       histos.add("ZNenergy", "common zn (a + c sides) energy", kTH1F, {axisEnergy});
       histos.add("ZPenergy", "common zp energy (a + c sides)", kTH1F, {axisEnergy});
-      histos.add("hFT0CAmp", "hFT0CAmp", kTH1F, {{nBinsAmp, 0, 40000}});
-      histos.add("hFT0AAmp", "hFT0AAmp", kTH1F, {{nBinsAmp, 0, 40000}});
-      histos.add("hFT0MAmp", "hFT0AAmp", kTH1F, {{nBinsAmp, 0, 40000}});
+      histos.add("hFT0CAmp", ";Amplitude;counts", kTH1F, {{nBinsAmp, 0, 10000000}});
+      histos.add("hFT0AAmp", ";Amplitude;counts", kTH1F, {{nBinsAmp, 0, 10000000}});
+      histos.add("hFT0MAmp", ";Amplitude;counts", kTH1F, {{nBinsAmp, 0, 10000000}});
+      histos.add("hMultT0A", ";Amplitude;counts", kTH1F, {{nBinsAmp, 0, 250000}});
+      histos.add("hMultT0C", ";Amplitude;counts", kTH1F, {{nBinsAmp, 0, 250000}});
+      histos.add("hMultT0M", ";Amplitude;counts", kTH1F, {{nBinsAmp, 0, 250000}});
     }
   }
 
@@ -268,43 +261,37 @@ struct FlowZDCtask {
     double sumCosPsiDiff = 0.0; // initialize Sum of cosPsiDiff for averaging
     double sumSinPsiDiff = 0.0; // initialize Sum of cosPsiDiff for averaging
     int countEvents = 0;        // initialize Counter for the number of events processed
+    double FT0AAmp = 0 ;
+    double FT0CAmp = 0 ;
+    // init values for ft0 multiplicity
+    float multFT0A = 0.f;
+    float multFT0C = 0.f;
+    float multFT0M = 0.f;
 
     // collision-based event selection
     for (auto& collision : cols) {
         const auto& foundBC = collision.foundBC_as<BCsRun3>();
+    multFT0A = collision.multFT0A();
+    multFT0C = collision.multFT0C();
+    multFT0M = multFT0A + multFT0C;
 
-        if (collision.has_foundFT0()) {
-            const auto& ft0 = collision.foundFT0();
+    histos.fill(HIST("hMultT0A"), multFT0A);
+    histos.fill(HIST("hMultT0C"), multFT0C);
+    histos.fill(HIST("hMultT0M"), multFT0M);
+    if (collision.has_foundFT0()) {
+      auto ft0 = collision.foundFT0();
+      for (auto amplitude : ft0.amplitudeA()) {
+          FT0AAmp += amplitude;
+          histos.fill(HIST("hFT0AAmp"), FT0AAmp);
+        }
+      for (auto amplitude : ft0.amplitudeC()) {
+          FT0CAmp += amplitude;
+          histos.fill(HIST("hFT0CAmp"), FT0CAmp);
+        }
 
-            float amplitudeM = 0;
-
-            size_t nA = ft0.amplitudeA().size();  // FT0A amplitudes size
-            size_t nC = ft0.amplitudeC().size();  // FT0C amplitudes size
-
-            for (std::size_t i = 0; i < std::min(nA, nC); i++) {
-                float amplitudeA = ft0.amplitudeA()[i];
-                float amplitudeC = ft0.amplitudeC()[i];
-                amplitudeM = amplitudeA + amplitudeC;
-
-                histos.fill(HIST("hFT0AAmp"), amplitudeA);
-                histos.fill(HIST("hFT0CAmp"), amplitudeC);
-                histos.fill(HIST("hFT0MAmp"), amplitudeM);
-            }
-
-            if (nA > nC) {
-                for (std::size_t i = nC; i < nA; i++) {
-                    float amplitudeA = ft0.amplitudeA()[i];
-                    histos.fill(HIST("hFT0AAmp"), amplitudeA);
-                }
-            }
-
-            if (nC > nA) {
-                for (std::size_t i = nA; i < nC; i++) {
-                    float amplitudeC = ft0.amplitudeC()[i];
-                    histos.fill(HIST("hFT0CAmp"), amplitudeC);
-                }
-            }
-
+    }
+    double FT0MAmp = FT0AAmp + FT0CAmp;
+    histos.fill(HIST("hFT0MAmp"), FT0MAmp);
             if (foundBC.has_zdc()) {
                 const auto& zdcread = foundBC.zdc();
                 const auto cent = collision.centFT0C();
@@ -330,8 +317,8 @@ struct FlowZDCtask {
                 float common_sumZNA = (zdcread.energyCommonZNA());
                 float common_sumZPC = (zdcread.energyCommonZPC());
                 float common_sumZPA = (zdcread.energyCommonZPA());
-                float sumZN = (sumZNC * 0.90) + (sumZNA * 0.92);
-                float sumZP = (sumZPC * 0.52) + (sumZPA * 0.52);
+                float sumZN = (sumZNC) + (sumZNA);
+                float sumZP = (sumZPC) + (sumZPA);
 
                 histos.fill(HIST("ZNenergy"), sumZN);
                 histos.fill(HIST("ZPenergy"), sumZP);
@@ -346,8 +333,8 @@ struct FlowZDCtask {
                 pZPratiovscent->Fill(cent, ratioZP);
                 pZNvsFT0Ccent->Fill(cent, sumZN);
                 pZPvsFT0Ccent->Fill(cent, sumZP);
-                pZPvsFT0MAmp->Fill(sumZP, amplitudeM);
-                pZNvsFT0MAmp->Fill(sumZN, amplitudeM);
+                pZPvsFT0MAmp->Fill(sumZP, FT0MAmp);
+                pZNvsFT0MAmp->Fill(sumZN, FT0MAmp);
 
 
                 histos.get<TH2>(HIST("ZDC_energy_vs_ZEM"))->Fill(sumZEM, sumZDC);
@@ -408,15 +395,11 @@ struct FlowZDCtask {
       }
       }
     }
-  }
- 
-  
 
 
   PROCESS_SWITCH(FlowZDCtask, processZdcCollAssoc, "Processing ZDC w. collision association", true);
   PROCESS_SWITCH(FlowZDCtask, processQVector, "Process before recentering", true);
- 
->>>>>>> e4841f82 (Updated neutron skin process in FlowZDCtask.cxx)
+
 }; // end of struct function
 
 WorkflowSpec defineDataProcessing(ConfigContext const& cfgc)
