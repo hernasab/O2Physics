@@ -79,11 +79,12 @@ struct FlowZDCtask {
   // ConfigurableAxis axisFT0mult{"axisFT0mult", {nBinsAmp, 0, 10000}, "axis for FT0mult histos"};
   Filter collisionFilter = nabs(aod::collision::posZ) < cfgCutVertex;
   Filter trackFilter = (nabs(aod::track::eta) < cfgCutEta) &&
-                       (aod::track::pt > cfgCutPtMin) &&
-                       (aod::track::pt < cfgCutPtMax) &&
-                       ((requireGlobalTrackInFilter()) ||
-                        (aod::track::isGlobalTrackSDD == (uint8_t)true)) &&
-                       (aod::track::tpcChi2NCl < cfgCutChi2prTPCcls);
+                     (aod::track::pt > cfgCutPtMin) &&
+                     (aod::track::pt < cfgCutPtMax) &&
+                     ((requireGlobalTrackInFilter()) ||
+                      (aod::track::isGlobalTrackSDD == (uint8_t) true)) &&
+                     (aod::track::tpcChi2NCl < cfgCutChi2prTPCcls);
+
   Partition<aodTracks> tracksIUWithTPC = (aod::track::tpcNClsFindable > (uint8_t)0);
 
   TComplex qTPC;       // init q TPC
