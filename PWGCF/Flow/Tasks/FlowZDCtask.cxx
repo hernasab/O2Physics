@@ -195,7 +195,7 @@ struct FlowZDCtask {
       histos.add("ZNCenergy", "ZN energy side c", kTH1F, {axisEnergy});
       histos.add("ZNAenergy", "ZN energy side a", kTH1F, {axisEnergy});
       histos.add("ZPCenergy", "ZP energy side c", kTH1F, {axisEnergy});
-      histos.add("ZPAenergy", "ZP energy side a", kTH1F, {axisEnergy});  
+      histos.add("ZPAenergy", "ZP energy side a", kTH1F, {axisEnergy});
       histos.add("ZNenergy", "common zn (a + c sides) energy", kTH1F, {axisEnergy});
       histos.add("ZPenergy", "common zp energy (a + c sides)", kTH1F, {axisEnergy});
       histos.add("hFT0CAmp", ";Amplitude;counts", kTH1F, {{nBinsAmp, 0, 10000000}});
