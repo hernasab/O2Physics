@@ -731,7 +731,7 @@ struct chk892flow {
 
     // Check bTrack first
     if (std::abs(motherbTrack.pdgCode()) != kKstarPlus) // Are you charged Kstar's daughter?
-      return false;                                // Apply first since it's more restrictive
+      return false;                                     // Apply first since it's more restrictive
 
     if (std::abs(motherkV0.pdgCode()) != 310) // Is it K0s?
       return false;
