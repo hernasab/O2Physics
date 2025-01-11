@@ -92,7 +92,7 @@ struct FlowZDCtask {
   ConfigurableAxis axisFT0CAmp{"axisFT0CAmp", {60000, 0, 60000}, "axisFT0CAmp"};
 
   Filter collisionFilter = nabs(aod::collision::posZ) < cfgCutVertex;
-  Filter trackFilter = (nabs(aod::track::eta) < cfgCutEta) && (aod::track::pt > cfgCutPtMin) && (aod::track::pt < cfgCutPtMax) && ((requireGlobalTrackInFilter()) || (aod::track::isGlobalTrackSDD == (uint8_t)true)) && (aod::track::tpcChi2NCl < cfgCutChi2prTPCcls);
+  Filter trackFilter = (nabs(aod::track::eta) < cfgCutEta) && (aod::track::pt > cfgCutPtMin) && (aod::track::pt < cfgCutPtMax) && ((requireGlobalTrackInFilter()) || (aod::track::isGlobalTrackSDD == (uint8_t) true)) && (aod::track::tpcChi2NCl < cfgCutChi2prTPCcls);
   Partition<aodTracks> tracksIUWithTPC = (aod::track::tpcNClsFindable > (uint8_t)0);
 
   TComplex qTPC;       // init q TPC
