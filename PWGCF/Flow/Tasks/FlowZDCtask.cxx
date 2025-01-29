@@ -243,12 +243,10 @@ struct FlowZDCtask {
     double qTpcReal = 0.0; // Initialize qTPC_real
     double qTpcIm = 0.0;   // init qTPC_imaginary
 
-    int multTrk = tracks.size(); // Tracks are already filtered with GlobalTrack || GlobalTrackSDD
-
     if (cent < 0.0 && cent > 70)
       return;
     std::complex<double> qTPC(0, 0); // Starting with a q-vector of zero
-    int nTot{0};
+    int nTot{0};  // Tracks are already filtered with GlobalTrack || GlobalTrackSDD
     for (const auto& track : tracks) {
       if (track.tpcNClsCrossedRows() < minTpcNcrossedRows)
         continue;
