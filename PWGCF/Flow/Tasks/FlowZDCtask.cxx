@@ -58,7 +58,7 @@ struct FlowZDCtask {
   O2_DEFINE_CONFIGURABLE(cfgCutPtPOIMax, float, 10.0f, "Maximal pT for poi tracks")
   O2_DEFINE_CONFIGURABLE(cfgCutPtMin, float, 0.2f, "Minimal pT for ref tracks")
   O2_DEFINE_CONFIGURABLE(cfgCutPtMax, float, 10.0f, "Maximal pT for ref tracks")
-  O2_DEFINE_CONFIGURABLE(cfgCutEta, float, 0.8f, "Eta range for tracks") 
+  O2_DEFINE_CONFIGURABLE(cfgCutEta, float, 0.8f, "Eta range for tracks")
   O2_DEFINE_CONFIGURABLE(cfgCutChi2prTPCcls, float, 2.5, "Chi2 per TPC clusters")
   O2_DEFINE_CONFIGURABLE(cfgUseNch, bool, false, "Use Nch for flow observables")
   O2_DEFINE_CONFIGURABLE(cfgNbootstrap, int, 10, "Number of subsamples")
@@ -261,13 +261,13 @@ struct FlowZDCtask {
       histos.fill(HIST("ptHistogram"), track.pt());
       qTPC += std::complex<double>(std::cos(2.0 * phi), std::sin(2.0 * phi));
     } // end track loop 1
-    int pT{0}; 
+    int pT{0};
     for (const auto& track : tracks) {
       if (track.tpcNClsCrossedRows() < minTpcNcrossedRows)
         continue;
       if (fabs(track.dcaXY()) > cfgCutDCAxy)
         continue;
-      pT = track.pt(); 
+      pT = track.pt();
       pT++;
     } // end track loop 2
     histos.fill(HIST("multvsCent"), cent, nTot);
