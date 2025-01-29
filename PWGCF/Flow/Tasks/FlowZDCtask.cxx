@@ -42,9 +42,9 @@ using namespace o2;
 using namespace o2::framework;
 using namespace o2::framework::expressions;
 using namespace o2::aod::mult;
-using ColEvSels = soa::Join<aod::Collisions, aod::EvSels, aod::CentFT0Cs, aod::Mults>;
+using ColEvSels = soa::Join<aod::Collisions, aod::EvSels>;
 using AodCollisions = soa::Filtered<soa::Join<aod::Collisions, aod::EvSels, aod::CentFT0Cs>>;
-using AodTracks = soa::Filtered<soa::Join<aod::Tracks, aod::TrackSelection, aod::TracksExtra>>;
+using AodTracks = soa::Filtered<soa::Join<aod::Tracks, aod::TrackSelection, aod::TracksExtra, aod::TracksDCA>>;
 using BCsRun3 = soa::Join<aod::BCs, aod::Timestamps, aod::BcSels, aod::Run3MatchedToBCSparse>;
 using AodZDCs = soa::Join<aod::ZDCMults, aod::Zdcs>;
 
@@ -71,6 +71,8 @@ struct FlowZDCtask {
   Configurable<float> etaGap{"etaGap", 0.5, "Eta gap"};
   Configurable<float> minPt{"minPt", 0.2, "Minimum pt"};
   Configurable<float> maxPt{"maxPt", 20.0, "Maximum pt"};
+  Configurable<float> minTpcNcrossedRows{"minTpcNcrossedRows", 20, "minTpcNcrossedRows"};
+  Configurable<float> minDcaXy{"minDcaXy", 0.2, "minDcaXy"};
   Configurable<float> maxZem{"maxZem", 3099.5, "Max ZEM signal"};
   // for ZDC info and analysis
   Configurable<int> nBinsADC{"nBinsADC", 1000, "nbinsADC"};
@@ -81,6 +83,7 @@ struct FlowZDCtask {
   Configurable<float> acceptanceZnc{"acceptanceZnc", 0.90, "ZNC acceptance factor"};
   Configurable<float> acceptanceZpa{"acceptanceZpa", 0.52, "ZPA acceptance factor"};
   Configurable<float> acceptanceZpc{"acceptanceZpc", 0.50, "ZPC acceptance factor"};
+
 
   ConfigurableAxis axisVertex{"axisVertex", {20, -10, 10}, "vertex axis for histograms"};
   ConfigurableAxis axisPhi{"axisPhi", {60, 0.0, constants::math::TwoPI}, "phi axis for histograms"};
@@ -248,6 +251,10 @@ struct FlowZDCtask {
     std::complex<double> qTPC(0, 0); // Starting with a q-vector of zero
 
     for (const auto& track : tracks) {
+      if (track.tpcNClsCrossedRows() < minTpcNcrossedRows)
+        continue;
+      if (fabs(track.dcaXY()) < minDcaXy)
+        continue; 
       double phi = track.phi();
       histos.fill(HIST("etaHistogram"), track.eta());
       histos.fill(HIST("phiHistogram"), track.phi());
