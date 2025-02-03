@@ -499,12 +499,12 @@ struct FlowZDCtask {
     }
     histos.fill(HIST("VtxZHist"), collision.posZ());
     auto NchTracks = 0;
-    for (auto& track : tracks){
+    for (auto& track : tracks) {
       if (std::abs(track.eta()) >= etaRange) {
         continue;
       }
       NchTracks++;
-    }    
+    }
     histos.fill(HIST("GlobalMult_vs_FT0C"), NchTracks, collision.multFT0C());
   }
 
