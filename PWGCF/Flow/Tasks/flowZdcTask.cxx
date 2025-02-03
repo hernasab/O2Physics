@@ -223,7 +223,7 @@ struct FlowZDCtask {
     x->SetBinLabel(3, "kNoSameBunchPileup");  // reject collisions in case of pileup with another collision in the same foundBC
     x->SetBinLabel(4, "kIsGoodZvtxFT0vsPV");  // small difference between z-vertex from PV and from FT0
     x->SetBinLabel(5, "kIsVertexITSTPC");     // at least one ITS-TPC track (reject vertices built from ITS-only tracks)
-    x->SetBinLabel(6, "kIsGoodITSLayersAll");     //"Centrality based on no other collisions in this Readout Frame with per-collision multiplicity above threshold tracks"
+    x->SetBinLabel(6, "kIsGoodITSLayersAll"); //"Centrality based on no other collisions in this Readout Frame with per-collision multiplicity above threshold tracks"
     histos.add("GlobalMult_vs_FT0C", "GlobalMult_vs_FT0C", kTH2F, {axisMult, axisFT0CMult});
     histos.add("VtxZHist", "VtxZHist", kTH1D, {axisVtxZ});
 
@@ -269,14 +269,14 @@ struct FlowZDCtask {
       histos.add("hZPvsMult", "ZP Energy vs Multiplicity", kTH2F, {axisMultiplicity, axisZP});
     }
   }
-   template <typename EventCuts>
-   bool IsEventSelected(EventCuts const& col)
+  template <typename EventCuts>
+  bool IsEventSelected(EventCuts const& col)
   {
     histos.fill(HIST("eventSelectionSteps"), 1);
 
-     if (!col.sel8()) {
-       return false;
-     }
+    if (!col.sel8()) {
+      return false;
+    }
     histos.fill(HIST("eventSelectionSteps"), 2);
 
     if (IsApplySameBunchPileup && !col.selection_bit(o2::aod::evsel::kNoSameBunchPileup)) {
@@ -489,7 +489,8 @@ struct FlowZDCtask {
     }
   }
 
-  void processCorrelation(CollisionDataTable::iterator const& collision,  FilTrackDataTable const& tracks){
+  void processCorrelation(CollisionDataTable::iterator const& collision, FilTrackDataTable const& tracks)
+  {
     if (!IsEventSelected(collision)) {
       return;
     }
