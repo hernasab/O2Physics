@@ -269,8 +269,10 @@ struct FlowZdcTask {
     xAxis->SetBinLabel(1, "All events");
 <<<<<<< HEAD
     xAxis->SetBinLabel(2, "SelEigth");
-    xAxis->SetBinLabel(3, "NoSameBunchPileup");;  // reject collisions in case of pileup with another collision in the same foundBC
-    xAxis->SetBinLabel(4, "GoodZvtxFT0vsPV");;  // small difference between z-vertex from PV and from FT0
+    xAxis->SetBinLabel(3, "NoSameBunchPileup");
+    ; // reject collisions in case of pileup with another collision in the same foundBC
+    xAxis->SetBinLabel(4, "GoodZvtxFT0vsPV");
+    ; // small difference between z-vertex from PV and from FT0
     xAxis->SetBinLabel(5, "NoCollInTimeRangeStrict");
     xAxis->SetBinLabel(6, "NoCollInTimeRangeStandard");
     xAxis->SetBinLabel(7, "NoCollInRofStrict");
@@ -340,7 +342,7 @@ struct FlowZdcTask {
       histos.add("debunch", ";t_{ZDC}-t_{ZDA};t_{ZDC}+t_{ZDA}", kTH2F, {{{nBinsTDC, minTdc, maxTdc}, {nBinsTDC, minTdc, maxTdc}}});
     }
 
-    if (doprocessQA){
+    if (doprocessQA) {
       histos.add("T0Ccent", ";;Entries", kTH1F, {axisCent});
 
       histos.add("ZNVsFT0A", ";T0A (#times 1/100);ZNA+ZNC;", kTH2F, {{{nBinsAmpFT0, 0., maxAmpFT0}, {nBinsZDC, -0.5, maxZn}}});
@@ -383,7 +385,6 @@ struct FlowZdcTask {
       histos.add("ZNVsNch", ";#it{N}_{ch} (|#eta|<0.8);ZNA+ZNC;", kTH2F, {{{nBinsNch, minNch, maxNch}, {nBinsZDC, minNch, maxZn}}});
       histos.add("ZNDifVsNch", ";#it{N}_{ch} (|#eta|<0.8);ZNA-ZNC;", kTH2F, {{{nBinsNch, minNch, maxNch}, {100, -50., 50.}}});
     }
-
   }
   template <typename EventCuts>
   bool isEventSelected(EventCuts const& col)
@@ -631,9 +632,8 @@ struct FlowZdcTask {
     histos.fill(HIST("ZNDifVsNch"), glbTracks, znA - znC);
     if (glbTracks >= minNchSel) {
       histos.fill(HIST("NchVsMeanPt"), glbTracks, meanpt / glbTracks);
-    }    
+    }
   }
-
 
   void processQVector(AodCollisions::iterator const& collision, aod::BCsWithTimestamps const&, AodTracks const& tracks, BCsRun3 const& /*bcs*/, aod::Zdcs const& /*zdcsData*/, aod::ZDCMults const& /*zdcMults*/)
   {
@@ -871,3 +871,4 @@ WorkflowSpec defineDataProcessing(ConfigContext const& cfgc)
   return WorkflowSpec{
     adaptAnalysisTask<FlowZdcTask>(cfgc)};
 }
+ 
