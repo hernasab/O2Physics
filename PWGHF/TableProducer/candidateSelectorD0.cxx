@@ -15,15 +15,6 @@
 /// \author Nima Zardoshti <nima.zardoshti@cern.ch>, CERN
 /// \author Vít Kučera <vit.kucera@cern.ch>, CERN
 
-#include <string>
-#include <vector>
-
-#include "CommonConstants/PhysicsConstants.h"
-#include "Framework/AnalysisTask.h"
-#include "Framework/runDataProcessing.h"
-
-#include "Common/Core/TrackSelectorPID.h"
-
 #include "PWGHF/Core/HfHelper.h"
 #include "PWGHF/Core/HfMlResponse.h"
 #include "PWGHF/Core/HfMlResponseD0ToKPi.h"
@@ -31,6 +22,15 @@
 #include "PWGHF/DataModel/CandidateReconstructionTables.h"
 #include "PWGHF/DataModel/CandidateSelectionTables.h"
 #include "PWGHF/Utils/utilsAnalysis.h"
+
+#include "Common/Core/TrackSelectorPID.h"
+
+#include "CommonConstants/PhysicsConstants.h"
+#include "Framework/AnalysisTask.h"
+#include "Framework/runDataProcessing.h"
+
+#include <string>
+#include <vector>
 
 using namespace o2;
 using namespace o2::analysis;

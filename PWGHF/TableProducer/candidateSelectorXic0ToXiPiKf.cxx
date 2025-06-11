@@ -14,22 +14,21 @@
 /// \author Ran Tu <ran.tu@cern.ch>, Fudan University
 /// \author Tao Fang <tao.fang@cern.ch>, Central China Normal University
 
-#include <string>
-#include <vector>
+#include "PWGHF/Core/HfMlResponseXic0ToXiPiKf.h"
+#include "PWGHF/Core/SelectorCuts.h"
+#include "PWGHF/DataModel/CandidateReconstructionTables.h"
+#include "PWGHF/DataModel/CandidateSelectionTables.h"
+#include "PWGHF/Utils/utilsAnalysis.h"
+
+#include "Common/Core/TrackSelection.h"
+#include "Common/Core/TrackSelectorPID.h"
 
 #include "CommonConstants/PhysicsConstants.h"
 #include "Framework/AnalysisTask.h"
 #include "Framework/runDataProcessing.h"
 
-#include "Common/Core/TrackSelection.h"
-#include "Common/Core/TrackSelectorPID.h"
-
-#include "PWGHF/Core/HfMlResponseXic0ToXiPiKf.h"
-#include "PWGHF/Core/SelectorCuts.h"
-
-#include "PWGHF/DataModel/CandidateReconstructionTables.h"
-#include "PWGHF/DataModel/CandidateSelectionTables.h"
-#include "PWGHF/Utils/utilsAnalysis.h"
+#include <string>
+#include <vector>
 
 using namespace o2;
 using namespace o2::aod;

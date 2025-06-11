@@ -15,12 +15,12 @@
 /// \author Samrangy Sadhu <samrangy.sadhu@cern.ch>, INFN Bari
 /// \author Swapnesh Santosh Khade <swapnesh.santosh.khade@cern.ch>, IIT Indore
 
-#include <vector>
-
-#include "CommonConstants/PhysicsConstants.h"
-#include "Framework/AnalysisTask.h"
-#include "Framework/HistogramRegistry.h"
-#include "Framework/runDataProcessing.h"
+#include "PWGHF/Core/HfHelper.h"
+#include "PWGHF/Core/SelectorCuts.h"
+#include "PWGHF/DataModel/CandidateReconstructionTables.h"
+#include "PWGHF/DataModel/CandidateSelectionTables.h"
+#include "PWGHF/HFC/DataModel/CorrelationTables.h"
+#include "PWGHF/HFC/Utils/utilsCorrelations.h"
 
 #include "Common/Core/TrackSelection.h"
 #include "Common/DataModel/Centrality.h"
@@ -28,12 +28,12 @@
 #include "Common/DataModel/Multiplicity.h"
 #include "Common/DataModel/TrackSelectionTables.h"
 
-#include "PWGHF/Core/HfHelper.h"
-#include "PWGHF/Core/SelectorCuts.h"
-#include "PWGHF/DataModel/CandidateReconstructionTables.h"
-#include "PWGHF/DataModel/CandidateSelectionTables.h"
-#include "PWGHF/HFC/DataModel/CorrelationTables.h"
-#include "PWGHF/HFC/Utils/utilsCorrelations.h"
+#include "CommonConstants/PhysicsConstants.h"
+#include "Framework/AnalysisTask.h"
+#include "Framework/HistogramRegistry.h"
+#include "Framework/runDataProcessing.h"
+
+#include <vector>
 
 using namespace o2;
 using namespace o2::analysis;

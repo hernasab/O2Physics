@@ -13,40 +13,41 @@
 // Analysis task to produce resolution mapfor electrons/muons in dilepton analysis
 //    Please write to: daiki.sekihata@cern.ch
 
-#include <map>
-#include <string>
-#include <utility>
-#include <set>
-#include <vector>
-#include <array>
+#include "PWGEM/Dilepton/Utils/MCUtilities.h"
 
-#include "Framework/runDataProcessing.h"
-#include "Framework/AnalysisTask.h"
-#include "Framework/AnalysisDataModel.h"
-#include "Framework/ASoAHelpers.h"
-#include "Framework/ASoA.h"
-#include "Framework/DataTypes.h"
-#include "Framework/HistogramRegistry.h"
-#include "Common/DataModel/TrackSelectionTables.h"
-#include "Common/DataModel/EventSelection.h"
+#include "Common/CCDB/RCTSelectionFlags.h"
+#include "Common/Core/fwdtrackUtilities.h"
+#include "Common/Core/trackUtilities.h"
 #include "Common/DataModel/Centrality.h"
 #include "Common/DataModel/CollisionAssociationTables.h"
-#include "Common/Core/trackUtilities.h"
-#include "Common/CCDB/RCTSelectionFlags.h"
+#include "Common/DataModel/EventSelection.h"
+#include "Common/DataModel/TrackSelectionTables.h"
 
 #include "CCDB/BasicCCDBManager.h"
-#include "DataFormatsParameters/GRPMagField.h"
 #include "DataFormatsCalibration/MeanVertexObject.h"
-#include "TGeoGlobalMagField.h"
-#include "Field/MagneticField.h"
-
+#include "DataFormatsParameters/GRPMagField.h"
 #include "DetectorsBase/Propagator.h"
+#include "Field/MagneticField.h"
+#include "Framework/ASoA.h"
+#include "Framework/ASoAHelpers.h"
+#include "Framework/AnalysisDataModel.h"
+#include "Framework/AnalysisTask.h"
+#include "Framework/DataTypes.h"
+#include "Framework/HistogramRegistry.h"
+#include "Framework/runDataProcessing.h"
 #include "GlobalTracking/MatchGlobalFwd.h"
 #include "MCHTracking/TrackExtrap.h"
 #include "MCHTracking/TrackParam.h"
 #include "ReconstructionDataFormats/TrackFwd.h"
-#include "PWGEM/Dilepton/Utils/MCUtilities.h"
-#include "Common/Core/fwdtrackUtilities.h"
+
+#include "TGeoGlobalMagField.h"
+
+#include <array>
+#include <map>
+#include <set>
+#include <string>
+#include <utility>
+#include <vector>
 
 using namespace o2;
 using namespace o2::framework;

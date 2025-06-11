@@ -19,19 +19,21 @@
 /// @email: preghenella@bo.infn.it
 ///
 
-#include <cstdio>
+#include "ALICE3/Core/DelphesO2LutWriter.h"
 
 #include "ALICE3/Core/DelphesO2TrackSmearer.h"
-#include "ALICE3/Core/DelphesO2LutWriter.h"
-#include <iostream>
-#include "TMatrixD.h"
-#include "TVectorD.h"
-#include "TAxis.h"
-#include "TMatrixDSymEigen.h"
-#include "TDatabasePDG.h"
-#include "TLorentzVector.h"
 #include "ALICE3/Core/FastTracker.h"
 #include "ALICE3/Core/TrackUtilities.h"
+
+#include "TAxis.h"
+#include "TDatabasePDG.h"
+#include "TLorentzVector.h"
+#include "TMatrixD.h"
+#include "TMatrixDSymEigen.h"
+#include "TVectorD.h"
+
+#include <cstdio>
+#include <iostream>
 
 // #define USE_FWD_PARAM
 #ifdef USE_FWD_PARAM

@@ -14,22 +14,22 @@
 /// \author Marianna Mazzilli <marianna.mazzilli@cern.ch>
 /// \author Zhen Zhang <zhenz@cern.ch>
 
-#include <memory> // std::shared_ptr
-#include <string>
-#include <vector>
+#include "PWGHF/Core/HfHelper.h"
+#include "PWGHF/Core/SelectorCuts.h"
+#include "PWGHF/DataModel/CandidateReconstructionTables.h"
+#include "PWGHF/DataModel/CandidateSelectionTables.h"
+#include "PWGHF/HFC/DataModel/CorrelationTables.h"
+#include "PWGHF/HFC/Utils/utilsCorrelations.h"
+#include "PWGHF/Utils/utilsAnalysis.h"
 
 #include "CCDB/BasicCCDBManager.h"
 #include "Framework/AnalysisTask.h"
 #include "Framework/HistogramRegistry.h"
 #include "Framework/runDataProcessing.h"
 
-#include "PWGHF/Core/HfHelper.h"
-#include "PWGHF/Core/SelectorCuts.h"
-#include "PWGHF/DataModel/CandidateReconstructionTables.h"
-#include "PWGHF/DataModel/CandidateSelectionTables.h"
-#include "PWGHF/Utils/utilsAnalysis.h"
-#include "PWGHF/HFC/DataModel/CorrelationTables.h"
-#include "PWGHF/HFC/Utils/utilsCorrelations.h"
+#include <memory> // std::shared_ptr
+#include <string>
+#include <vector>
 
 using namespace o2;
 using namespace o2::constants::math;

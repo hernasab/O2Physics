@@ -15,14 +15,6 @@
 /// \author Gian Michele Innocenti <gian.michele.innocenti@cern.ch>, CERN
 /// \author Vít Kučera <vit.kucera@cern.ch>, CERN
 
-#include <vector>
-#include <algorithm> // std::min
-
-#include "CommonConstants/PhysicsConstants.h"
-#include "Framework/AnalysisTask.h"
-#include "Framework/HistogramRegistry.h"
-#include "Framework/runDataProcessing.h"
-
 #include "PWGHF/Core/CentralityEstimation.h"
 #include "PWGHF/Core/HfHelper.h"
 #include "PWGHF/Core/SelectorCuts.h"
@@ -30,6 +22,14 @@
 #include "PWGHF/DataModel/CandidateSelectionTables.h"
 #include "PWGHF/Utils/utilsAnalysis.h"
 #include "PWGHF/Utils/utilsEvSelHf.h"
+
+#include "CommonConstants/PhysicsConstants.h"
+#include "Framework/AnalysisTask.h"
+#include "Framework/HistogramRegistry.h"
+#include "Framework/runDataProcessing.h"
+
+#include <algorithm> // std::min
+#include <vector>
 
 using namespace o2;
 using namespace o2::analysis;

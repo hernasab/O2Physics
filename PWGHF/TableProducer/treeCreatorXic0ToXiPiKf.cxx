@@ -16,15 +16,15 @@
 /// \author Ran Tu <ran.tu@cern.ch>, Fudan University
 /// \author Tao Fang <tao.fang@cern.ch>, Central China Normal University
 
-#include "Framework/AnalysisTask.h"
-#include "Framework/runDataProcessing.h"
+#include "PWGHF/Core/CentralityEstimation.h"
+#include "PWGHF/Core/HfHelper.h"
+#include "PWGHF/DataModel/CandidateReconstructionTables.h"
+#include "PWGHF/DataModel/CandidateSelectionTables.h"
 
 #include "Common/Core/RecoDecay.h"
 
-#include "PWGHF/Core/HfHelper.h"
-#include "PWGHF/Core/CentralityEstimation.h"
-#include "PWGHF/DataModel/CandidateReconstructionTables.h"
-#include "PWGHF/DataModel/CandidateSelectionTables.h"
+#include "Framework/AnalysisTask.h"
+#include "Framework/runDataProcessing.h"
 
 using namespace o2;
 using namespace o2::framework;

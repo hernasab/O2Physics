@@ -13,7 +13,12 @@
 /// \brief Task used to study the Open heavy flavour decay muon production as a function of multiplicity.
 /// \author Md Samsul Islam <md.samsul.islam@cern.ch>, IITB
 
-#include <cmath>
+#include "Common/Core/TrackSelection.h"
+#include "Common/Core/trackUtilities.h"
+#include "Common/DataModel/Centrality.h"
+#include "Common/DataModel/EventSelection.h"
+#include "Common/DataModel/Multiplicity.h"
+#include "Common/DataModel/TrackSelectionTables.h"
 
 #include "CommonConstants/MathConstants.h"
 #include "Framework/AnalysisDataModel.h"
@@ -22,12 +27,7 @@
 #include "Framework/runDataProcessing.h"
 #include "ReconstructionDataFormats/TrackFwd.h"
 
-#include "Common/Core/TrackSelection.h"
-#include "Common/Core/trackUtilities.h"
-#include "Common/DataModel/Centrality.h"
-#include "Common/DataModel/EventSelection.h"
-#include "Common/DataModel/Multiplicity.h"
-#include "Common/DataModel/TrackSelectionTables.h"
+#include <cmath>
 
 using namespace o2;
 using namespace o2::aod;

@@ -14,21 +14,21 @@
 /// \author Grazia Luparello <grazia.luparello@cern.ch>
 /// \author Samuele Cattaruzzi <samuele.cattaruzzi@cern.ch>
 
-#include <memory>
-#include <string>
-#include <vector>
+#include "PWGHF/Core/HfHelper.h"
+#include "PWGHF/Core/SelectorCuts.h"
+#include "PWGHF/DataModel/CandidateReconstructionTables.h"
+#include "PWGHF/DataModel/CandidateSelectionTables.h"
+#include "PWGHF/HFC/DataModel/CorrelationTables.h"
+#include "PWGHF/Utils/utilsAnalysis.h"
 
 #include "CCDB/BasicCCDBManager.h"
 #include "Framework/AnalysisTask.h"
 #include "Framework/HistogramRegistry.h"
 #include "Framework/runDataProcessing.h"
 
-#include "PWGHF/Core/HfHelper.h"
-#include "PWGHF/Core/SelectorCuts.h"
-#include "PWGHF/DataModel/CandidateReconstructionTables.h"
-#include "PWGHF/DataModel/CandidateSelectionTables.h"
-#include "PWGHF/Utils/utilsAnalysis.h"
-#include "PWGHF/HFC/DataModel/CorrelationTables.h"
+#include <memory>
+#include <string>
+#include <vector>
 
 using namespace o2;
 using namespace o2::constants::physics;

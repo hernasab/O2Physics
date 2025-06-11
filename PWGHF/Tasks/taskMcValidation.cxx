@@ -18,27 +18,26 @@
 /// \author Fabrizio Grosa <fabrizio.grosa@cern.ch>, CERN
 /// \author Fabio Catalano <fabio.catalano@cern.ch>, CERN
 
-#include <memory>
-#include <algorithm>
-#include <vector>
-
-#include "CommonConstants/PhysicsConstants.h"
-#include "Framework/AnalysisTask.h"
-#include "Framework/HistogramRegistry.h"
-#include "Framework/runDataProcessing.h"
-#include "Framework/RunningWorkflowInfo.h"
-#include "Framework/StaticFor.h"
-
-#include "CCDB/BasicCCDBManager.h"
-#include "Common/DataModel/CollisionAssociationTables.h"
-
-#include "PWGLF/DataModel/mcCentrality.h"
-
 #include "PWGHF/Core/CentralityEstimation.h"
 #include "PWGHF/Core/SelectorCuts.h"
 #include "PWGHF/DataModel/CandidateReconstructionTables.h"
 #include "PWGHF/DataModel/CandidateSelectionTables.h"
 #include "PWGHF/Utils/utilsEvSelHf.h"
+#include "PWGLF/DataModel/mcCentrality.h"
+
+#include "Common/DataModel/CollisionAssociationTables.h"
+
+#include "CCDB/BasicCCDBManager.h"
+#include "CommonConstants/PhysicsConstants.h"
+#include "Framework/AnalysisTask.h"
+#include "Framework/HistogramRegistry.h"
+#include "Framework/RunningWorkflowInfo.h"
+#include "Framework/StaticFor.h"
+#include "Framework/runDataProcessing.h"
+
+#include <algorithm>
+#include <memory>
+#include <vector>
 
 using namespace o2;
 using namespace o2::analysis;

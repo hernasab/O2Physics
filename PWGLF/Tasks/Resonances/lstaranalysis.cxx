@@ -21,25 +21,23 @@
 #include <string>
 
 // 4. Other includes: O2 framework, ROOT, etc.
-#include "Framework/runDataProcessing.h"
-#include "Framework/AnalysisTask.h"
-
-#include <CCDB/BasicCCDBManager.h>
-
-#include "Framework/O2DatabasePDGPlugin.h"
-#include "Framework/HistogramRegistry.h"
-
 #include "PWGLF/Utils/collisionCuts.h"
 
-#include "Common/DataModel/TrackSelectionTables.h"
 #include "Common/DataModel/Centrality.h"
 #include "Common/DataModel/Multiplicity.h"
 #include "Common/DataModel/PIDResponse.h"
+#include "Common/DataModel/TrackSelectionTables.h"
 
-#include "TRandom.h"
-#include "TVector3.h"
+#include "Framework/AnalysisTask.h"
+#include "Framework/HistogramRegistry.h"
+#include "Framework/O2DatabasePDGPlugin.h"
+#include "Framework/runDataProcessing.h"
+#include <CCDB/BasicCCDBManager.h>
+
 #include "Math/Vector4D.h"
 #include "TPDGCode.h"
+#include "TRandom.h"
+#include "TVector3.h"
 
 using namespace o2;
 using namespace o2::soa;

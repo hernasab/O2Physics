@@ -15,9 +15,17 @@
 ///
 /// \author Mattia Faggin <mfaggin@cern.ch>, University and INFN PADOVA
 
-#include <string>
-#include <set>
-#include <vector>
+#include "PWGHF/Core/HfHelper.h"
+#include "PWGHF/Core/SelectorCuts.h"
+#include "PWGHF/DataModel/CandidateReconstructionTables.h"
+#include "PWGHF/DataModel/CandidateSelectionTables.h"
+#include "PWGHF/Utils/utilsBfieldCCDB.h" // for dca recalculation
+#include "PWGHF/Utils/utilsEvSelHf.h"
+
+#include "Common/Core/TrackSelection.h"
+#include "Common/Core/TrackSelectionDefaults.h"
+#include "Common/Core/trackUtilities.h"
+#include "Common/DataModel/CollisionAssociationTables.h"
 
 #include "CCDB/BasicCCDBManager.h" // for dca recalculation
 #include "CommonConstants/PhysicsConstants.h"
@@ -27,20 +35,12 @@
 #include "DetectorsBase/Propagator.h"          // for dca recalculation
 #include "DetectorsVertexing/PVertexer.h"      // for dca recalculation
 #include "Framework/AnalysisTask.h"
-#include "Framework/runDataProcessing.h"
 #include "Framework/RunningWorkflowInfo.h"
+#include "Framework/runDataProcessing.h"
 
-#include "Common/Core/TrackSelection.h"
-#include "Common/Core/trackUtilities.h"
-#include "Common/DataModel/CollisionAssociationTables.h"
-#include "Common/Core/TrackSelectionDefaults.h"
-
-#include "PWGHF/Core/HfHelper.h"
-#include "PWGHF/Core/SelectorCuts.h"
-#include "PWGHF/DataModel/CandidateReconstructionTables.h"
-#include "PWGHF/DataModel/CandidateSelectionTables.h"
-#include "PWGHF/Utils/utilsBfieldCCDB.h" // for dca recalculation
-#include "PWGHF/Utils/utilsEvSelHf.h"
+#include <set>
+#include <string>
+#include <vector>
 
 using namespace o2;
 using namespace o2::analysis;

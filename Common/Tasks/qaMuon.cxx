@@ -13,39 +13,39 @@
 /// \author Paul Veen <paul.veen@cern.ch>
 /// \author Chi Zhang <chi.zhang@cern.ch>
 
-#include <chrono>
-
-#include "Framework/AnalysisDataModel.h"
-#include "Framework/AnalysisTask.h"
-#include "Framework/runDataProcessing.h"
-#include "Framework/ASoAHelpers.h"
+#include "Common/DataModel/CollisionAssociationTables.h"
+#include "Common/DataModel/EventSelection.h"
+#include "Common/DataModel/FwdTrackReAlignTables.h"
 
 #include "CCDB/BasicCCDBManager.h"
 #include "CCDB/CCDBTimeStampUtils.h"
-#include "CommonUtils/NameConf.h"
 #include "CommonUtils/ConfigurableParam.h"
+#include "CommonUtils/NameConf.h"
 #include "DataFormatsMCH/Cluster.h"
-#include "DataFormatsParameters/GRPObject.h"
-#include "DetectorsBase/GeometryManager.h"
 #include "DataFormatsParameters/GRPMagField.h"
+#include "DataFormatsParameters/GRPObject.h"
 #include "DetectorsBase/GRPGeomHelper.h"
+#include "DetectorsBase/GeometryManager.h"
 #include "DetectorsBase/Propagator.h"
 #include "Field/MagneticField.h"
-#include "MathUtils/Cartesian.h"
+#include "Framework/ASoAHelpers.h"
+#include "Framework/AnalysisDataModel.h"
+#include "Framework/AnalysisTask.h"
+#include "Framework/runDataProcessing.h"
+#include "GlobalTracking/MatchGlobalFwd.h"
+#include "MCHBase/TrackerParam.h"
 #include "MCHGeometryTransformer/Transformations.h"
 #include "MCHTracking/Track.h"
 #include "MCHTracking/TrackExtrap.h"
-#include "MCHTracking/TrackParam.h"
 #include "MCHTracking/TrackFitter.h"
-#include "MCHBase/TrackerParam.h"
-#include "GlobalTracking/MatchGlobalFwd.h"
+#include "MCHTracking/TrackParam.h"
+#include "MathUtils/Cartesian.h"
 #include "ReconstructionDataFormats/TrackFwd.h"
-#include "Common/DataModel/FwdTrackReAlignTables.h"
-#include "Common/DataModel/EventSelection.h"
-#include "Common/DataModel/CollisionAssociationTables.h"
 
-#include "TGeoGlobalMagField.h"
 #include "Math/Vector4D.h"
+#include "TGeoGlobalMagField.h"
+
+#include <chrono>
 
 using namespace std;
 using namespace o2;

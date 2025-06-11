@@ -14,21 +14,21 @@
 ///
 /// \author Fabio Colamaria <fabio.colamaria@ba.infn.it>, INFN Bari
 
-#include <vector>
+#include "PWGHF/Core/HfHelper.h"
+#include "PWGHF/Core/SelectorCuts.h"
+#include "PWGHF/DataModel/CandidateReconstructionTables.h"
+#include "PWGHF/DataModel/CandidateSelectionTables.h"
+#include "PWGHF/HFC/DataModel/CorrelationTables.h"
+
+#include "Common/Core/TrackSelection.h"
+#include "Common/DataModel/TrackSelectionTables.h"
 
 #include "CommonConstants/PhysicsConstants.h"
 #include "Framework/AnalysisTask.h"
 #include "Framework/HistogramRegistry.h"
 #include "Framework/runDataProcessing.h"
 
-#include "Common/Core/TrackSelection.h"
-#include "Common/DataModel/TrackSelectionTables.h"
-
-#include "PWGHF/Core/HfHelper.h"
-#include "PWGHF/Core/SelectorCuts.h"
-#include "PWGHF/DataModel/CandidateReconstructionTables.h"
-#include "PWGHF/DataModel/CandidateSelectionTables.h"
-#include "PWGHF/HFC/DataModel/CorrelationTables.h"
+#include <vector>
 
 using namespace o2;
 using namespace o2::analysis;

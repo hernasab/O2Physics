@@ -13,16 +13,16 @@
 /// \brief Ds-Hadrons correlator task for offline analysis
 /// \author Samuele Cattaruzzi <samuele.cattaruzzi@cern.ch>
 
-#include <vector>
+#include "PWGHF/Core/SelectorCuts.h"
+#include "PWGHF/HFC/DataModel/CorrelationTables.h"
+#include "PWGHF/HFC/DataModel/DerivedDataCorrelationTables.h"
 
 #include "CommonConstants/PhysicsConstants.h"
 #include "Framework/AnalysisTask.h"
 #include "Framework/HistogramRegistry.h"
 #include "Framework/runDataProcessing.h"
 
-#include "PWGHF/Core/SelectorCuts.h"
-#include "PWGHF/HFC/DataModel/CorrelationTables.h"
-#include "PWGHF/HFC/DataModel/DerivedDataCorrelationTables.h"
+#include <vector>
 
 using namespace o2;
 using namespace o2::analysis;

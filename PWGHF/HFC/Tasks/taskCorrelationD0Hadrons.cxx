@@ -16,19 +16,19 @@
 /// \author Samrangy Sadhu <samrangy.sadhu@cern.ch>, INFN Bari
 /// \author Swapnesh Santosh Khade <swapnesh.santosh.khade@cern.ch>, IIT Indore
 
-#include <vector>
+#include "PWGHF/Core/HfHelper.h"
+#include "PWGHF/Core/SelectorCuts.h"
+#include "PWGHF/DataModel/CandidateReconstructionTables.h"
+#include "PWGHF/DataModel/CandidateSelectionTables.h"
+#include "PWGHF/HFC/DataModel/CorrelationTables.h"
+#include "PWGHF/HFC/Utils/utilsCorrelations.h"
+#include "PWGHF/Utils/utilsAnalysis.h"
 
 #include "Framework/AnalysisTask.h"
 #include "Framework/HistogramRegistry.h"
 #include "Framework/runDataProcessing.h"
 
-#include "PWGHF/Core/HfHelper.h"
-#include "PWGHF/Core/SelectorCuts.h"
-#include "PWGHF/DataModel/CandidateReconstructionTables.h"
-#include "PWGHF/DataModel/CandidateSelectionTables.h"
-#include "PWGHF/Utils/utilsAnalysis.h"
-#include "PWGHF/HFC/DataModel/CorrelationTables.h"
-#include "PWGHF/HFC/Utils/utilsCorrelations.h"
+#include <vector>
 
 using namespace o2;
 using namespace o2::constants::physics;

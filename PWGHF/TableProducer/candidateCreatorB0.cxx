@@ -15,9 +15,16 @@
 ///
 /// \author Alexandre Bigot <alexandre.bigot@cern.ch>, IPHC Strasbourg
 
-#include <vector>
-#include <string>
-#include <memory>
+#include "PWGHF/Core/HfHelper.h"
+#include "PWGHF/Core/SelectorCuts.h"
+#include "PWGHF/DataModel/CandidateReconstructionTables.h"
+#include "PWGHF/DataModel/CandidateSelectionTables.h"
+#include "PWGHF/Utils/utilsBfieldCCDB.h"
+#include "PWGHF/Utils/utilsMcGen.h"
+#include "PWGHF/Utils/utilsTrkCandHf.h"
+
+#include "Common/Core/trackUtilities.h"
+#include "Common/DataModel/CollisionAssociationTables.h"
 
 #include "CommonConstants/PhysicsConstants.h"
 #include "DCAFitter/DCAFitterN.h"
@@ -26,16 +33,9 @@
 #include "ReconstructionDataFormats/DCA.h"
 #include "ReconstructionDataFormats/V0.h"
 
-#include "Common/Core/trackUtilities.h"
-#include "Common/DataModel/CollisionAssociationTables.h"
-
-#include "PWGHF/Core/HfHelper.h"
-#include "PWGHF/Core/SelectorCuts.h"
-#include "PWGHF/DataModel/CandidateReconstructionTables.h"
-#include "PWGHF/DataModel/CandidateSelectionTables.h"
-#include "PWGHF/Utils/utilsBfieldCCDB.h"
-#include "PWGHF/Utils/utilsMcGen.h"
-#include "PWGHF/Utils/utilsTrkCandHf.h"
+#include <memory>
+#include <string>
+#include <vector>
 
 using namespace o2;
 using namespace o2::analysis;

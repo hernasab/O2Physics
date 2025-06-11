@@ -13,8 +13,12 @@
 /// \brief Reconstruction of Resonance candidates
 ///
 /// \author Luca Aglietta <luca.aglietta@cern.ch>, Università degli Studi di Torino
-#include <vector>
-#include <string>
+#include "PWGHF/D2H/Core/SelectorCutsRedDataFormat.h"
+#include "PWGHF/D2H/DataModel/ReducedDataModel.h"
+#include "PWGHF/Utils/utilsAnalysis.h"
+
+#include "Common/Core/trackUtilities.h"
+#include "Common/DataModel/CollisionAssociationTables.h"
 
 #include "CommonConstants/PhysicsConstants.h"
 #include "Framework/AnalysisTask.h"
@@ -22,12 +26,8 @@
 #include "ReconstructionDataFormats/DCA.h"
 #include "ReconstructionDataFormats/V0.h"
 
-#include "Common/Core/trackUtilities.h"
-#include "Common/DataModel/CollisionAssociationTables.h"
-
-#include "PWGHF/D2H/DataModel/ReducedDataModel.h"
-#include "PWGHF/D2H/Core/SelectorCutsRedDataFormat.h"
-#include "PWGHF/Utils/utilsAnalysis.h"
+#include <string>
+#include <vector>
 
 using namespace o2;
 using namespace o2::aod;

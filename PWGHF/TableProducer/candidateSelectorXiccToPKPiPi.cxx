@@ -14,18 +14,18 @@
 ///
 /// \author Gian Michele Innocenti <gian.michele.innocenti@cern.ch>, CERN
 
-#include <vector>
+#include "PWGHF/Core/HfHelper.h"
+#include "PWGHF/Core/SelectorCuts.h"
+#include "PWGHF/DataModel/CandidateReconstructionTables.h"
+#include "PWGHF/DataModel/CandidateSelectionTables.h"
+
+#include "Common/Core/TrackSelectorPID.h"
 
 #include "CommonConstants/PhysicsConstants.h"
 #include "Framework/AnalysisTask.h"
 #include "Framework/runDataProcessing.h"
 
-#include "Common/Core/TrackSelectorPID.h"
-
-#include "PWGHF/Core/HfHelper.h"
-#include "PWGHF/Core/SelectorCuts.h"
-#include "PWGHF/DataModel/CandidateReconstructionTables.h"
-#include "PWGHF/DataModel/CandidateSelectionTables.h"
+#include <vector>
 
 using namespace o2;
 using namespace o2::analysis;

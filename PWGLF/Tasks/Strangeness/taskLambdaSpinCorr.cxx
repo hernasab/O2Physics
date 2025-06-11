@@ -14,35 +14,39 @@
 ///
 /// \author prottay.das@cern.ch
 
-#include <fairlogger/Logger.h>
-#include <tuple>
-#include <string>
-#include <vector>
+#include "PWGLF/DataModel/LFStrangenessPIDTables.h"
+#include "PWGLF/DataModel/LFStrangenessTables.h"
+#include "PWGMM/Mult/DataModel/Index.h" // for Particles2Tracks table
+
+#include "Common/Core/TrackSelection.h"
+#include "Common/Core/trackUtilities.h"
+#include "Common/DataModel/Centrality.h"
+#include "Common/DataModel/EventSelection.h"
+#include "Common/DataModel/FT0Corrected.h"
+#include "Common/DataModel/Multiplicity.h"
+#include "Common/DataModel/PIDResponse.h"
+#include "Common/DataModel/TrackSelectionTables.h"
+
+#include "CCDB/BasicCCDBManager.h"
+#include "CommonConstants/PhysicsConstants.h"
+#include "Framework/ASoAHelpers.h"
+#include "Framework/AnalysisDataModel.h"
+#include "Framework/AnalysisTask.h"
+#include "Framework/HistogramRegistry.h"
+#include "Framework/StepTHn.h"
+#include "Framework/runDataProcessing.h"
+#include "ReconstructionDataFormats/Track.h"
+
+#include "Math/GenVector/Boost.h"
 #include "Math/Vector2D.h"
 #include "Math/Vector3D.h"
 #include "Math/Vector4D.h"
-#include "Math/GenVector/Boost.h"
 
-#include "Framework/runDataProcessing.h"
-#include "Framework/AnalysisTask.h"
-#include "Framework/AnalysisDataModel.h"
-#include "Framework/HistogramRegistry.h"
-#include "Framework/StepTHn.h"
-#include "Common/DataModel/PIDResponse.h"
-#include "Common/DataModel/Multiplicity.h"
-#include "Common/DataModel/Centrality.h"
-#include "Common/DataModel/TrackSelectionTables.h"
-#include "Common/DataModel/EventSelection.h"
-#include "Common/Core/trackUtilities.h"
-#include "CommonConstants/PhysicsConstants.h"
-#include "Common/Core/TrackSelection.h"
-#include "Framework/ASoAHelpers.h"
-#include "ReconstructionDataFormats/Track.h"
-#include "CCDB/BasicCCDBManager.h"
-#include "PWGLF/DataModel/LFStrangenessTables.h"
-#include "PWGLF/DataModel/LFStrangenessPIDTables.h"
-#include "Common/DataModel/FT0Corrected.h"
-#include "PWGMM/Mult/DataModel/Index.h" // for Particles2Tracks table
+#include <fairlogger/Logger.h>
+
+#include <string>
+#include <tuple>
+#include <vector>
 
 using namespace o2;
 using namespace o2::framework;

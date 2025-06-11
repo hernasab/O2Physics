@@ -13,39 +13,38 @@
 /// \brief Task for full jet spectra studies in pp collisions.
 /// \author Archita Rani Dash <archita.rani.dash@cern.ch>
 
-#include <vector>
-#include <utility>
-#include <string>
-#include <cmath>
-#include <TRandom3.h>
-
-#include "CommonConstants/PhysicsConstants.h"
-#include "Framework/ASoA.h"
-#include "Framework/AnalysisDataModel.h"
-#include "Framework/AnalysisTask.h"
-#include "Framework/HistogramRegistry.h"
-#include "Framework/O2DatabasePDGPlugin.h"
-#include "Framework/runDataProcessing.h"
-#include "Framework/RunningWorkflowInfo.h"
-#include "Framework/Logger.h"
+#include "PWGHF/Core/HfHelper.h"
+#include "PWGJE/Core/JetDerivedDataUtilities.h"
+#include "PWGJE/Core/JetFinder.h"
+#include "PWGJE/Core/JetFindingUtilities.h"
+#include "PWGJE/Core/JetUtilities.h"
+#include "PWGJE/DataModel/EMCALClusters.h"
+#include "PWGJE/DataModel/EMCALMatchedCollisions.h"
+#include "PWGJE/DataModel/Jet.h"
 
 #include "Common/Core/TrackSelection.h"
 #include "Common/Core/TrackSelectionDefaults.h"
 #include "Common/DataModel/EventSelection.h"
 #include "Common/DataModel/PIDResponse.h"
 #include "Common/DataModel/TrackSelectionTables.h"
-
-#include "PWGHF/Core/HfHelper.h"
-
-#include "PWGJE/DataModel/Jet.h"
-#include "PWGJE/DataModel/EMCALClusters.h"
-#include "PWGJE/DataModel/EMCALMatchedCollisions.h"
-#include "PWGJE/Core/JetFinder.h"
-#include "PWGJE/Core/JetUtilities.h"
-#include "PWGJE/Core/JetDerivedDataUtilities.h"
-#include "PWGJE/Core/JetFindingUtilities.h"
-
 #include "EventFiltering/filterTables.h"
+
+#include "CommonConstants/PhysicsConstants.h"
+#include "Framework/ASoA.h"
+#include "Framework/AnalysisDataModel.h"
+#include "Framework/AnalysisTask.h"
+#include "Framework/HistogramRegistry.h"
+#include "Framework/Logger.h"
+#include "Framework/O2DatabasePDGPlugin.h"
+#include "Framework/RunningWorkflowInfo.h"
+#include "Framework/runDataProcessing.h"
+
+#include <TRandom3.h>
+
+#include <cmath>
+#include <string>
+#include <utility>
+#include <vector>
 
 using namespace std;
 using namespace o2;
