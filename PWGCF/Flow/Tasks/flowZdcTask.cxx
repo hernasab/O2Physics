@@ -69,6 +69,7 @@ struct FlowZdcTask {
   Configurable<int> nBinsAmpFT0{"nBinsAmpFT0", 100, "N bins FT0 amp"};
   Configurable<float> maxAmpFT0{"maxAmpFT0", 2500, "Max FT0 amp"};
   Configurable<float> maxAmpFT0C{"maxAmpFT0C", 500, "Max FT0C amp"};
+  Configurable<float> maxAmpFT0M{"maxAmpFT0M", 500, "Max FT0M amp"};
   Configurable<int> nBinsAmpFT0C{"nBinsAmpFT0C", 100, "N bins FT0M amp"};
   Configurable<int> nBinsZDC{"nBinsZDC", 400, "nBinsZDC"};
   Configurable<int> nBinsZP{"nBinsZP", 50, "nBinsZP"};
